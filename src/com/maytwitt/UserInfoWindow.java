@@ -29,6 +29,8 @@ public class UserInfoWindow extends JFrame {
 	private String userId;
 	JTextArea textArea_2;
 	JTextPane textPane;
+	
+	JLabel lblNewLabel;
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +61,9 @@ public class UserInfoWindow extends JFrame {
 	{
 	 
 		AppUser user =getUserObject(getUserId());
+		
+		lblNewLabel.setText(user.getCreationTime().toString());
+		
 		StringBuilder b = new StringBuilder();
 		for(String s :user.getMessageList())
 		{
@@ -152,6 +157,8 @@ public class UserInfoWindow extends JFrame {
 
 			private void updateFollowersMessageList(String userId,String message) {
 				AppUser apUser = getUserObject(userId);
+				apUser.setLastUpdateTime(System.currentTimeMillis());
+				pause();
 				if(apUser!=null)
 				{
 					List<String> followers = apUser.getUserFollowers();
@@ -159,6 +166,7 @@ public class UserInfoWindow extends JFrame {
 					{
 						AppUser apUserFollower = getUserObject(followerID);
 						apUserFollower.getMessageList().add(message);
+						apUserFollower.setLastUpdateTime(System.currentTimeMillis());
 						System.out.println("Message twitted to: " +followerID );
 					}
 				}
@@ -211,6 +219,14 @@ public class UserInfoWindow extends JFrame {
 		JLabel lblMessagefeed = new JLabel("MessageFeed");
 		lblMessagefeed.setBounds(10, 191, 124, 14);
 		contentPane.add(lblMessagefeed);
+		
+		 lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(261, 236, 100, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblUserCreationTime = new JLabel("User Creation Time :");
+		lblUserCreationTime.setBounds(127, 236, 124, 14);
+		contentPane.add(lblUserCreationTime);
 	}
 	
 	
@@ -240,5 +256,16 @@ public class UserInfoWindow extends JFrame {
 			}
 		}
 		return null;
+	}
+	
+	
+	static void pause(){
+	    long Time0 = System.currentTimeMillis();
+	    long Time1;
+	    long runTime = 0;
+	    while(runTime<1000){
+	        Time1 = System.currentTimeMillis();
+	        runTime = Time1 - Time0;
+	    }
 	}
 }
