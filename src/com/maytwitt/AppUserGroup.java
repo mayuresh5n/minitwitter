@@ -3,6 +3,8 @@ package com.maytwitt;
 public class AppUserGroup implements Visitor{
 	private String userGroupID;
 	private String ParentGroupID;
+	private Long creationTime;
+	
 	public String getUserGroupID() {
 		return userGroupID;
 	}
@@ -24,6 +26,12 @@ public class AppUserGroup implements Visitor{
 	public void countDataInlist(AddDataVisitor v) {
 		v.visit(this);
 		
+	}
+	public Long getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
 	}
 	 
 	 

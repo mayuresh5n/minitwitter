@@ -10,6 +10,8 @@ public class AppUser implements Visitor{
 	private  List<String>  userFollowers;
 	private List<String>  usersFollowing ;
 	private List<String>  messageList;
+	private Long creationTime;
+	private Long lastUpdateTime;
 	
 	
 	
@@ -68,6 +70,18 @@ public class AppUser implements Visitor{
 	@Override
 	public void countDataInlist(AddDataVisitor v) {
 		v.visit(this);		
+	}
+	public Long getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(Long creationTime) {
+		this.creationTime = creationTime;
+	}
+	public Long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+	public void setLastUpdateTime(Long lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 	 
 	 

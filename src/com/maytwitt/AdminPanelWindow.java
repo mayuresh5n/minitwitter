@@ -3,6 +3,9 @@ package com.maytwitt;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Observable;
@@ -60,17 +63,17 @@ public class AdminPanelWindow extends Driver implements Observer{
 		btnNewButton.setBounds(327, 16, 97, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!textArea.getText().trim().equals("") && !isUserAlreadyPresent(textArea.getText().trim()))
-				{
+				//if(!textArea.getText().trim().equals("") && !isUserAlreadyPresent(textArea.getText().trim()))
+				//{
 				AddAppUser frame = new AddAppUser();				 
 				frame.setUserID(textArea.getText());
 				frame.setAdm(AdminPanelWindow.this);
 				frame.setVisible(true);
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(frame, "Enter valid /non duplicate userName");
-				}
+				//}
+				//else
+				//{
+				//	JOptionPane.showMessageDialog(frame, "Enter valid /non duplicate userName");
+				//}
 			}
 
 			
@@ -135,7 +138,7 @@ public class AdminPanelWindow extends Driver implements Observer{
 				return false;
 			}
 		});
-		btnOpenUserView.setBounds(259, 98, 115, 23);
+		btnOpenUserView.setBounds(231, 105, 115, 23);
 		frame.getContentPane().add(btnOpenUserView);
 
 		JButton btnNewButton_2 = new JButton("Total Users");
@@ -211,6 +214,72 @@ public class AdminPanelWindow extends Driver implements Observer{
 			});
 		btnPositivePercentage.setBounds(309, 227, 125, 23);
 		frame.getContentPane().add(btnPositivePercentage);
+		
+		JButton btnValidateUsergroupIds = new JButton("validate user/group Ids");
+		btnValidateUsergroupIds.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				List<String> userIdlist = getUserIDList();
+				for(String id :userIdlist)
+				{
+					if(Collections.frequency(userIdlist, id)>1)
+					{
+						JOptionPane.showMessageDialog(frame, "Duplicate user Ids present");
+					}
+				}
+				
+				
+				List<String> userGrpIdlist = getUserGrpIDList();
+				for(String id :userGrpIdlist)
+				{
+					if(Collections.frequency(userGrpIdlist, id)>1)
+					{
+						JOptionPane.showMessageDialog(frame, "Duplicate user Group Ids present");
+					}
+				}
+				
+				
+			}
+
+			private List<String> getUserGrpIDList() {
+				List<String> retval =new ArrayList<String>();
+				
+				for(AppUserGroup a:UserAndGroupInfo.getAppUserGroupList()) 
+				{
+					retval.add(a.getUserGroupID());
+				}
+				return retval;
+			}
+
+			private List<String> getUserIDList() {
+				List<String> retval =new ArrayList<String>();
+				
+				for(AppUser a:UserAndGroupInfo.getAppUserList())
+				{
+					retval.add(a.getUserID());
+				}
+				return retval;
+			}
+		});
+		btnValidateUsergroupIds.setBounds(356, 105, 154, 23);
+		frame.getContentPane().add(btnValidateUsergroupIds);
+		
+		JButton btnWhoMadeLast = new JButton("Who made last update");
+		btnWhoMadeLast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				List<AppUser> items = UserAndGroupInfo.getAppUserList(); 
+				
+				Collections.sort(items, Comparator.comparingLong(AppUser::getLastUpdateTime));
+				
+				
+				JOptionPane.showMessageDialog(frame, "last Updated by: "+items.get(0));
+				
+			}
+		});
+		btnWhoMadeLast.setBounds(257, 274, 167, 23);
+		frame.getContentPane().add(btnWhoMadeLast);
 	}
 
 	private JTree updateJtree(JScrollPane scrollPane) {
@@ -381,4 +450,7 @@ public class AdminPanelWindow extends Driver implements Observer{
 		updateJtree(scrollPane);
 		
 	}
+	
+	
+	 
 }

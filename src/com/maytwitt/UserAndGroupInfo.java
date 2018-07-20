@@ -56,13 +56,18 @@ public class UserAndGroupInfo {
 		one.setUsersFollowing(followingList);
 		one.setUserGrpID("100");		
 		addAppUserList(one);
+		one.setCreationTime(System.currentTimeMillis());
+		one.setLastUpdateTime(System.currentTimeMillis());
+		
 		
 		AppUser two = new AppUser();
 		two.setUserID("user2");		 
 		List<String> follower = new ArrayList<>();
 		follower.add("user1");
 		two.setUserFollowers(follower);		 
-		two.setUserGrpID("102");		
+		two.setUserGrpID("102");
+		two.setCreationTime(System.currentTimeMillis());
+		two.setLastUpdateTime(System.currentTimeMillis());
 		addAppUserList(two);
 	}
 
@@ -70,16 +75,19 @@ public class UserAndGroupInfo {
 		AppUserGroup a = new AppUserGroup();
 		 
 		a.setUserGroupID("100");
+		a.setCreationTime(System.currentTimeMillis());
 		addAppUserGroupList(a) ;        
 	     
 		AppUserGroup b = new AppUserGroup();
 		b.setParentGroupID("100");
 		b.setUserGroupID("101");
+		b.setCreationTime(System.currentTimeMillis());
 		addAppUserGroupList(b) ;        
 		
 		AppUserGroup c = new AppUserGroup();
 		c.setParentGroupID("100");
 		c.setUserGroupID("102");
+		c.setCreationTime(System.currentTimeMillis());
 		addAppUserGroupList(c) ;        
 	}
 }

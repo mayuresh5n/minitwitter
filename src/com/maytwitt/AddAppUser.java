@@ -83,6 +83,7 @@ public class AddAppUser extends JFrame  {
 				AppUser newUser = new AppUser();
 				newUser.setUserID(getUserID());
 				newUser.setUserGrpID(slectedGroup);
+				newUser.setCreationTime(System.currentTimeMillis());
 				
 				UserAndGroupInfo.getAppUserList().add(newUser);
 				

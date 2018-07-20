@@ -79,6 +79,7 @@ public class AddAppUserGroup extends JFrame {
 				AppUserGroup apGrp = new AppUserGroup();
 				apGrp.setParentGroupID(slectedGroup);
 				apGrp.setUserGroupID(getUserGroupId());
+				apGrp.setCreationTime(System.currentTimeMillis());
 				
 				UserAndGroupInfo.addAppUserGroupList(apGrp);
 
